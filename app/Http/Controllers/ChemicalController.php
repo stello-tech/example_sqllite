@@ -43,9 +43,9 @@ class ChemicalController extends Controller
     }
 
     // Show edit form
-    public function editForm()
+    public function editForm(Chemical $chemical)
     {
-        return view('chemicals.edit');
+        return view('chemicals.edit', compact('chemical'));
     }
 
     // Update chemical

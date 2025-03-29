@@ -4,9 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chemical Inventory Management</title>
+    <script>
+        // Check for saved preference or system preference
+        if (localStorage.getItem('color-theme') === 'dark' || 
+            (!localStorage.getItem('color-theme') && 
+            window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900">
+    <!-- Theme Toggle Button -->
+    <button onclick="toggleTheme()" class="fixed top-4 right-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700 z-50">
+        <span id="theme-icon" class="dark:hidden">🌙</span>
+        <span id="theme-icon-dark" class="hidden dark:inline">☀️</span>
+    </button>
+
+    <script>
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        }
+    </script>
+
     <!-- Dashboard Container -->
     <div class="min-h-screen flex flex-col">
         <!-- Header with Logo and Buttons -->
@@ -20,27 +63,24 @@
                 <!-- Buttons -->
                 <div class="flex items-center space-x-4">
                     <!-- Add New Chemical -->
-                    <a href="{{ route('chemicals.create') }}" 
-                    class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-red-700 dark:bg-indigo-500 dark:hover:bg-red-600">
+                    <a href="#" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-red-700 dark:bg-indigo-500 dark:hover:bg-red-600">
                         Add New Chemical
                     </a>
                     
                     <!-- Remove Chemical -->
-                    <a href="{{ route('chemicals.deleteForm') }}" 
-                    class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-red-700 dark:bg-indigo-500 dark:hover:bg-red-600">
+                    <a href="#" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-red-700 dark:bg-indigo-500 dark:hover:bg-red-600">
                         Remove Chemical
                     </a>
                     
                     <!-- Edit Chemical -->
-                    <a href="{{ route('chemicals.editForm') }}" 
-                    class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-red-600 dark:bg-indigo-400 dark:hover:bg-red-500">
+                    <a href="#" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-red-600 dark:bg-indigo-400 dark:hover:bg-red-500">
                         Edit Chemical
                     </a>
                 </div>
             </div>
         </header>
 
-       <!-- Main Content -->
+        <!-- Main Content -->
         <main class="flex-1 p-6">
             <div class="min-w-full mx-auto overflow-x-auto">
                 <!-- Table Section -->
@@ -63,7 +103,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Table Rows (Dummy Data) -->
+                               <!-- Table Rows (Dummy Data) -->
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">1</td>
                                     <td class="px-6 py-4">MRUC0001BU</td>
@@ -199,7 +239,7 @@
                     </div>
                 </div>
 
-                <!-- Page footer similar to Sunnys'-->
+                <!-- Pagination -->
                 <div class="flex items-center justify-between border-t border-gray-200 bg-white dark:bg-gray-800 px-4 py-3 sm:px-6 mt-6">
                     <div class="flex flex-1 justify-between sm:hidden">
                         <a href="#" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">Previous</a>

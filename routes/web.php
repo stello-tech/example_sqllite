@@ -8,7 +8,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/two', function () {
+Route::get('/two', function() {
     return view('two');
 });
 
@@ -22,5 +22,13 @@ Route::post('/chemicals/add', [ChemicalController::class, 'store'])->name('chemi
 Route::get('/chemicals/remove', [ChemicalController::class, 'deleteForm'])->name('chemicals.deleteForm');
 Route::post('/chemicals/remove', [ChemicalController::class, 'destroy'])->name('chemicals.destroy');
 
-Route::get('/chemicals/edit', [ChemicalController::class, 'editForm'])->name('chemicals.editForm');
-Route::post('/chemicals/edit', [ChemicalController::class, 'update'])->name('chemicals.update');
+// Route::get('/chemicals/{chemical}/edit', [ChemicalController::class, 'editForm'])->name('chemicals.editForm');
+// Route::put('/chemicals/{chemical}', [ChemicalController::class, 'update'])->name('chemicals.update');
+
+Route::get('/chemicals/edit', function() {
+    $chemical = (object)[
+        'id' => 1,
+        'barcode' => 'MRUC0001BU'
+    ];
+    return view('chemicals.edit', ['chemical' => $chemical]);
+});
